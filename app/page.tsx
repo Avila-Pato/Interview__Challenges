@@ -1,8 +1,4 @@
 
-
-
-
-
 import Link from "next/link";
 
 function App() {
@@ -11,18 +7,8 @@ function App() {
       <h1>Pruebas</h1>
       <ul>
         <li><Link href="/reto-1">Reto 1</Link></li>
-        <li><a href="">Enlace 2</a></li>
-        <li><a href="">Enlace 3</a></li>
-      </ul>
-      <ul>
-        <li><a href="">Enlace 1</a></li>
-        <li><a href="">Enlace 2</a></li>
-        <li><a href="">Enlace 3</a></li>
-      </ul>
-      <ul>
-        <li><a href="">Enlace 1</a></li>
-        <li><a href="">Enlace 2</a></li>
-        <li><a href="">Enlace 3</a></li>
+        <li><Link href="/reto-2">Reto 2</Link></li>
+        <li><Link href="/reto-3">Reto 3</Link></li>
       </ul>
     </div>
   )
