@@ -70,7 +70,7 @@ function App() {
       </label>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>
+          <li key={`${user.id}`} >
             <input 
              type="checkbox"
              checked={selectedUsers.includes(user.id)} 
