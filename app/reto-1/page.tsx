@@ -1,17 +1,25 @@
 "use client";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import { User } from "./types/types";
 import api from "./api/api";
 
 
 function App() {
+  const checkAllRef = useRef<HTMLInputElement>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<number[]>([])
-  const [checkedUsers, setCheckedUsers] = useState<number[]>([])
+
 
   useEffect(() => {
     api.list().then(({items}) => setUsers(items));
   }, []);
+
+  // determinar el ckekbox determinado usando REF
+  useEffect(() => {
+    if (!checkAllRef.current) return;
+    checkAllRef.current.indeterminate = selectedUsers.length > 0 && selectedUsers.length < users.length;
+    checkAllRef.current.checked = selectedUsers.length === users.length && users.length > 0;
+  }, [selectedUsers, users]);
 
   async function handleRemove(id: number) {
     await api.remove(id);
@@ -41,6 +49,10 @@ function App() {
 
   }
 
+  const handleCheckAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedUsers(event.target.checked ? users.map((u) => u.id) : []);
+  };
+
   return (
     <main>
       <h1>Directorio de usuarios</h1>
@@ -50,10 +62,20 @@ function App() {
           Eliminar seleccionados
         </button>
       </div>
+      <label>
+      <input 
+       ref={checkAllRef}
+       type="checkbox" onChange={handleCheckAll}/>
+         selecionar todos
+      </label>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            <input type="checkbox" checked={selectedUsers.includes(user.id)} onChange={() => handleSelectedUser(user.id)} />
+            <input 
+             type="checkbox"
+             checked={selectedUsers.includes(user.id)} 
+             onChange={() => handleSelectedUser(user.id)} 
+            />
             <div>
               <strong>{user.name}</strong>
               <span>{user.email}</span>

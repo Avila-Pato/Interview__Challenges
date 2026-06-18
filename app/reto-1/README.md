@@ -6,7 +6,7 @@ Tarea 2
 [x] Permitir seleccioanr varios usarios y borrarlos a la vez
 
 Tarea 3
- [] agrega un checkBox que eprmita seleecinar / deseleccionar todos los usuarios
+ [x] agrega un checkBox que eprmita seleecinar / deseleccionar todos los usuarios
  
 Extra
- [] Permite el checkBox pueda estar en estado indeterminado
+ [X] Permite el checkBox pueda estar en estado indeterminado

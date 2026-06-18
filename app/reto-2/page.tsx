@@ -58,22 +58,23 @@ function App() {
     });
   }
 
-  async function handleBulkRemove() {
-    if (selectedIds.length === 0) return;
-    const { succeeded } = await api.bulkSetActive(selectedIds, false);
-    setUsers((users) => users.filter((user) => !succeeded.includes(user.id)));
-    setSelectedIds((prev) => prev.filter((id) => !succeeded.includes(id)));
+  async function handleRemoveAll() {
+   Promise.all(selectedIds.map((id) => api
+  .remove(id))).then(() => {
+    setUsers((users) => users.filter((user) => !selectedIds.includes(user.id)))
+    setSelectedIds([])
+  })
   }
 
   return (
     <main>
       <h1>Directorio de usuarios</h1>
       <div className="toolbar">
-        <span className="muted">{selectedIds.length} seleccionados</span>
+        <span className="muted">{selectedIds.length} {selectedIds.length === 1 ? "Usuario" : "Usuarios"}</span>
         <button
           className="remove"
-          onClick={handleBulkRemove}
           disabled={selectedIds.length === 0}
+          onClick={handleRemoveAll}
         >
           Eliminar usuarios
         </button>
