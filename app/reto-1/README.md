@@ -1,12 +1,12 @@
  Tarea 1
- [x] "Cargar más" no funciona. 
- El paginado no funciona correctamente.
+ [x] "Borrar usurios no funciona"
 
 Tarea 2
-[x] El botón de "Cargar más" debería ser visible solo cuando haya usuarios cargados y haya más usuarios para cargar.
+[x] Mostrar la cantidad de usuarios seleccionados en el encabezado
+[x] Permitir seleccioanr varios usarios y borrarlos a la vez
 
 Tarea 3
- [x] Reemplazar el botón por scroll infinito.
+ [] agrega un checkBox que eprmita seleecinar / deseleccionar todos los usuarios
  
 Extra
- [x] Mostrar un skeleton mientras se cargan los usuarios.
+ [] Permite el checkBox pueda estar en estado indeterminado
