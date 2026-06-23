@@ -11,6 +11,7 @@ function App() {
         <li><Link href="/reto-3">Reto 3</Link></li>
         <li><Link href="/reto-4">Reto 4</Link></li>
         <li><Link href="/reto-5">Reto 5</Link></li>
+        <li><Link href="/reto-6">Reto 6</Link></li>
       </ul>
     </div>
   )

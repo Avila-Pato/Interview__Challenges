@@ -46,6 +46,7 @@ function App() {
 
     historyRef.current = [...historyRef.current.slice(-2), users];
     futureRef.current = [];
+    
     setUsers((users) => users.concat(user));
 
     formRef.current?.reset();
