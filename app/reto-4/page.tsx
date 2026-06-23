@@ -44,8 +44,8 @@ function App() {
       users.concat({id: Date.now(), name, email}),
     );
 
-   
-
+   // otra forma de hacerlo 
+    // setUsers((users) => [...users, {id: Date.now(), name, email}]);
     form.reset() // limpia el input
   }
 

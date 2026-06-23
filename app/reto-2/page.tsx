@@ -21,50 +21,22 @@ function App() {
 
   async function handleRemove(id: number) {
     await api.remove(id);
-    setUsers((users) => users.filter((user) => user.id !== id));
-  }
-
-  function moveUp(id: number) {
-    if (id === 0) return;
-
-    setUsers((prev) => {
-      const newUsers = [...prev];
-
-      const index = newUsers.findIndex((user) => user.id === id);
-      if (index > 0) {
-        [newUsers[index - 1], newUsers[index]] = [
-          newUsers[index],
-          newUsers[index - 1],
-        ];
-      }
-
-      return newUsers;
-    });
-  }
-
-  function moveDown(id: number) {
-    setUsers((prev) => {
-      const newUsers = [...prev];
-
-      const index = newUsers.findIndex((user) => user.id === id);
-      if (index < newUsers.length - 1) {
-        [newUsers[index + 1], newUsers[index]] = [
-          newUsers[index],
-          newUsers[index + 1],
-        ];
-      }
-
-      return newUsers;
-    });
+    setUsers((prev) => prev.filter((user) => user.id !== id));
   }
 
   async function handleRemoveAll() {
-   Promise.all(selectedIds.map((id) => api
-  .remove(id))).then(() => {
-    setUsers((users) => users.filter((user) => !selectedIds.includes(user.id)))
-    setSelectedIds([])
-  })
+    await Promise.all(selectedIds.map((id) => api.remove(id)));
+    setUsers((prev) => prev.filter((user) => !selectedIds.includes(user.id)));
+    setSelectedIds([]);
   }
+
+  const move = (index: number, dir: 1 | -1) => {
+    setUsers((prev) => {
+      const updated = [...prev];
+      [updated[index], updated[index + dir]] = [updated[index + dir], updated[index]];
+      return updated;
+    });
+  };
 
   return (
     <main>
@@ -80,7 +52,7 @@ function App() {
         </button>
       </div>
       <ul>
-        {users.map((user) => (
+        {users.map((user, i) => (
           <li key={user.id}>
             <input
               type="checkbox"
@@ -94,10 +66,10 @@ function App() {
             <button className="remove" onClick={() => handleRemove(user.id)}>
               Borrar
             </button>
-            <button className="move-up" onClick={() => moveUp(user.id)}>
+            <button className="move-up" disabled={i === 0} onClick={() => move(i, -1)}>
               ↑
             </button>
-            <button className="move-down" onClick={() => moveDown(user.id)}>
+            <button className="move-down" disabled={i === users.length - 1} onClick={() => move(i, 1)}>
               ↓
             </button>
           </li>
