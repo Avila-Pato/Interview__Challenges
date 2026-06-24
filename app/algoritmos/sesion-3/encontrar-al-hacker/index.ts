@@ -12,4 +12,3 @@ export default function encontrarHackers(estudiantes: Estudiante[]): string[] {
 
       return hackers
     }
-    console.log(encontrarHackers)
