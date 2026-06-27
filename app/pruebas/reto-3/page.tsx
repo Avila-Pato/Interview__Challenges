@@ -5,35 +5,49 @@ import api, { MAX_USERS } from "./api/api";
 
 
 function App() {
-  const loaderRef = useRef(null)
-  const [users, setUsers] = useState<User[]>([]);
 
-  function handleLoadMore() {
-    api.list({ start: users.length }).then(({ items }) => {
+  const [users, setUsers] = useState<User[]>([]);
+  const scrollPonterRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef(false);
+
+  function loadMore(start: number) {
+    if (loadingRef.current) return;
+    loadingRef.current = true;
+    api.list({ start }).then(({ items }) => {
       setUsers((prev) => [...prev, ...items]);
+      loadingRef.current = false;
     });
   }
 
   useEffect(() => {
-    // const observer = new IntersectionObserver(([entry]) => {
-    //   if(entry.isIntersecting) {
-    //     handleLoadMore()
-    //   }
-    // })
-    // observer.observe(loaderRef.current!)
-
-    // return () => {
-    //     observer.disconnect()
-    // }
     api.list().then(({ items }) => setUsers(items));
   }, []);
+
+  const allLoaded = users.length >= MAX_USERS;
+
+  useEffect(() => {
+    if (allLoaded) return;
+    const start = users.length;
+    
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadMore(start);
+      }
+    });
+
+    if (scrollPonterRef.current) {
+      observer.observe(scrollPonterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [users.length, allLoaded])
 
   return (
     <main>
       <h1>Directorio de usuarios</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>
+          <li key={`${user.id}`}>
             <div>
               <strong>{user.name}</strong>
               <span>{user.email}</span>
@@ -41,7 +55,10 @@ function App() {
           </li>
         ))}
       </ul>
-      <button onClick={handleLoadMore} disabled={users.length >= MAX_USERS}>{users.length >= MAX_USERS ? "Ya no hay mas usuarios" : "Cargar más"}</button>
+      <div ref={scrollPonterRef}></div>
+      <button onClick={() => loadMore(users.length)} disabled={allLoaded}>
+        {allLoaded ? "Ya no hay más usuarios" : "Cargar más"}
+      </button>
     </main>
   );
 }
