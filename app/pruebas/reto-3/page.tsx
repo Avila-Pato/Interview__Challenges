@@ -1,53 +1,45 @@
 "use client";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import { User } from "./types/type";
 import api, { MAX_USERS } from "./api/api";
 
 
 function App() {
-
   const [users, setUsers] = useState<User[]>([]);
-  const scrollPonterRef = useRef<HTMLDivElement>(null);
-  const loadingRef = useRef(false);
+  const scrollPointerRef = useRef<HTMLDivElement | null>(null)
 
-  function loadMore(start: number) {
-    if (loadingRef.current) return;
-    loadingRef.current = true;
-    api.list({ start }).then(({ items }) => {
-      setUsers((prev) => [...prev, ...items]);
-      loadingRef.current = false;
-    });
-  }
+ const handleLoadMore = useCallback(() => {
+  api.list({ start: users.length, count: 8 }).then(({ items }) => {
+    setUsers((prev) => [...prev, ...items]);
+  });
+}, [users.length]);
+  
+  const disableButton =  users.length >= MAX_USERS
 
   useEffect(() => {
-    api.list().then(({ items }) => setUsers(items));
-  }, []);
-
-  const allLoaded = users.length >= MAX_USERS;
-
-  useEffect(() => {
-    if (allLoaded) return;
-    const start = users.length;
+    if(scrollPointerRef.current === null) return
     
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        loadMore(start);
+      const entry = entries[0]
+      if(entry.isIntersecting){
+        handleLoadMore()
       }
-    });
+    })
+    observer.observe(scrollPointerRef.current)
 
-    if (scrollPonterRef.current) {
-      observer.observe(scrollPonterRef.current);
+    return  () => {
+      observer.disconnect()
     }
-
-    return () => observer.disconnect();
-  }, [users.length, allLoaded])
+  },[handleLoadMore])
+  
+  
 
   return (
     <main>
       <h1>Directorio de usuarios</h1>
       <ul>
         {users.map((user) => (
-          <li key={`${user.id}`}>
+          <li key={user.id}>
             <div>
               <strong>{user.name}</strong>
               <span>{user.email}</span>
@@ -55,9 +47,9 @@ function App() {
           </li>
         ))}
       </ul>
-      <div ref={scrollPonterRef}></div>
-      <button onClick={() => loadMore(users.length)} disabled={allLoaded}>
-        {allLoaded ? "Ya no hay más usuarios" : "Cargar más"}
+      <div ref={scrollPointerRef}></div>
+      <button onClick={handleLoadMore} disabled={disableButton}>
+        {disableButton ? "No hay mas usuarios" : "cargar mas"}
       </button>
     </main>
   );
