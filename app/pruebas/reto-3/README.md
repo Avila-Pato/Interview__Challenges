@@ -4,6 +4,6 @@ Tarea 1
 Tarea 2
 [x] El botón de "Cargar más" debería ser visible solo cuando haya usuarios cargados y haya más usuarios para cargar.
 Tarea 3
-[] Reemplazar el botón por scroll infinito.
+[x] Reemplazar el botón por scroll infinito.
 Extra
 [] Mostrar un skeleton mientras se cargan los usuarios.
