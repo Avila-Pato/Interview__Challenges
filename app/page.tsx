@@ -13,6 +13,11 @@ function App() {
         <li><Link href="./pruebas/reto-5">Reto 5</Link></li>
         <li><Link href="./pruebas/reto-6">Reto 6</Link></li>
       </ul>
+
+      <h1>Proyectos take home</h1>
+         <ul>
+        <li><Link href="./proyectos-home/reto-1">Reto 1</Link></li>
+      </ul>
     </div>
   )
 }
