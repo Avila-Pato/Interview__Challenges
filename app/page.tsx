@@ -17,6 +17,7 @@ function App() {
       <h1>Proyectos take home</h1>
          <ul>
         <li><Link href="./proyectos-home/reto-1">Reto 1</Link></li>
+        <li><Link href="./proyectos-home/reto-2">Reto 2</Link></li>
       </ul>
     </div>
   )
