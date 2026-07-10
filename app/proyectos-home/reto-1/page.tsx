@@ -19,6 +19,8 @@ export default function Page() {
   const [score, setScore] = useState<number>(0);
   const [attempts, setAttempts] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(0);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState<string>("");
+  const [isCorrectGuess, setIsCorrectGuess] = useState<boolean | null>(null);
 
   // Carga el record guardado del usuario al montar el componente por primera vez
   useEffect(() => {
@@ -34,11 +36,14 @@ export default function Page() {
 
     const isCorrect = guess.toLowerCase().trim() === pokemon.name.toLowerCase().trim();
     
+    
     // Suma un intento siempre que se presiona el boton de validar
     setAttempts((prev) => prev + 1);
 
     // Si es correcto, revela el Pokemon, suma un punto y evalua si rompe el record actual
     if (isCorrect) {
+      setIsCorrectGuess(true);
+      setShowCorrectAnswer(pokemon.name);
       setIsRevealed(true);
       const newScore = score + 1;
       setScore(newScore);
@@ -48,7 +53,11 @@ export default function Page() {
         localStorage.setItem("pokemon_high_score", newScore.toString());
       }
     } else {
-      alert("Incorrecto. Intentalo de nuevo.");
+      // Si no es correcto, se limpia el input
+      setIsCorrectGuess(false);
+      setShowCorrectAnswer(pokemon.name);
+      setIsRevealed(true);
+      setGuess("");
     }
   };
 
@@ -60,6 +69,7 @@ export default function Page() {
     }
 
     setLoading(true);
+    setShowCorrectAnswer("");
     setGuess(""); 
     setIsRevealed(false); 
     try {
@@ -95,7 +105,7 @@ export default function Page() {
       </div>
 
       {error && <p className="nes-text is-error">Error: {error}</p>}
-      
+         
       {/* Contenedor principal de la tarjeta del Pokemon */}
       {pokemon && (
         <div className="nes-container with-title is-centered flex justify-center items-center flex-col">
@@ -110,7 +120,18 @@ export default function Page() {
                 isRevealed ? "brightness-100" : "brightness-0"
               }`}
             />
+            
           )}
+           <div>
+            {showCorrectAnswer && (
+              <p className={`nest-text ${isCorrectGuess ? "is-success" : "is-error"}`}>
+                {isCorrectGuess 
+                ? ` ¡Correcto! El Pokemon era ${showCorrectAnswer}!`
+                : ` ¡Incorrecto! El Pokemon era ${showCorrectAnswer}!`
+              }
+              </p>
+            )}
+        </div>
         </div>
       )}
 
@@ -131,8 +152,21 @@ export default function Page() {
             Saltar
           </button>
         )}
+        {setHighScore && (
+          <button
+            className="nes-btn is-warning"
+            onClick={() => {
+              setScore(0);
+              setAttempts(0);
+              setHighScore(0);
+              localStorage.setItem("pokemon_high_score", "0");
+            }}
+          >
+            Reiniciar
+          </button>
+        )}
       </div>
-
+    
       {/* Input para la respuesta del usuario */}
       <div className="nes-field flex flex-col gap-2 justify-center items-center">
         <input
@@ -142,7 +176,6 @@ export default function Page() {
           value={guess}
           onChange={(e) => setGuess(e.target.value)}
           disabled={isRevealed}
-          autoComplete="off"
           placeholder="Escribe el nombre..."
           onKeyDown={(e) => {
             if (e.key === "Enter") handleCheckGuess();
