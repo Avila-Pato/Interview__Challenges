@@ -14,7 +14,7 @@ const TOWER_LEVELS = [
   { level: 4, min: 600, label: "The Pit", bottomCenter: 25.5 },
   { level: 3, min: 500, label: "Sub-Zero", bottomCenter: 15.5 },
   { level: 2, min: 400, label: "Scorpion", bottomCenter: 3.5 },
-  { level: 1, min: 0, label: "Kombatant", bottomCenter: 0.5 },
+  { level: 1, min: 0, label: "Kombatant", bottomCenter: -8.0 },
 ];
 
 export default function Page() {
@@ -33,7 +33,7 @@ export default function Page() {
         setPrice(data.blue.value_sell);
       } catch (error) {
         console.log("Error al consultar la API, usando fallback:", error);
-        setPrice(1515);
+        setPrice(0);
       } finally {
         setLoading(false);
       }
@@ -85,7 +85,7 @@ export default function Page() {
       <h1 style={styles.title}>DÓLAR KOMBAT</h1>
       
       <span style={styles.footerNote}>
-        Haz clic en cualquier parte para activar el MK Theme 🔊
+        Haz clic en cualquier parte para activar el MK Theme 
       </span>
       <p style={styles.subtitle}>
         {loading
@@ -93,7 +93,7 @@ export default function Page() {
           : `Cotización actual: ${price.toLocaleString("es-CL", { style: "currency", currency: "CLP" })}`}
       </p>
 
-      <div style={styles.inputContainer} onClick={(e) => e.stopPropagation()}>
+      <div style={styles.inputContainer} >
         <label style={styles.inputLabel}>Seleccione un precio: </label>
         <input
           type="number"
@@ -130,7 +130,6 @@ export default function Page() {
               {price.toLocaleString("es-CL", {
                 style: "currency",
                 currency: "CLP",
-                maximumFractionDigits: 0,
               })}
             </p>
           </div>
@@ -177,14 +176,12 @@ mainContainer: {
   },
   subtitle: {
     color: "#aaa",
-    marginBottom: "15px",
     fontSize: "1.1rem",
   },
   inputContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginBottom: "25px",
     gap: "5px",
   },
   inputLabel: {
