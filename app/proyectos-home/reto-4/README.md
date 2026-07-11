@@ -20,4 +20,3 @@ Fácil: Errar no descuenta puntos.
 Medio: Errar descuenta un punto.
 Díficil: Errar descuenta tres puntos.
 Muy difícil: Errar vuelve a cero el puntaje.
-Podés clonarlo o usarlo directamentes desde CodeSan
