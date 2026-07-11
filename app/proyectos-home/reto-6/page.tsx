@@ -7,7 +7,7 @@ function App() {
     
     useEffect(() => {
         const Today = new Date();
-        // el mes de 6 es julio 0 es enero y 25 es el 25 de julio
+        // el mes de 6 es julio 0 es enero y 16 es el 16 de julio que es el feriado
         const fechaFeriado = new Date(Today.getFullYear(), 6, 16);
 
         // si el feriado de este a;o ya paso, pasamos al feriado del proximo a;o
