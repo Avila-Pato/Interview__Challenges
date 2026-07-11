@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable react-hooks/purity */
 "use client";
 import { useEffect, useState } from "react";
 
@@ -10,12 +12,15 @@ const array = [
   { id: 6, color: "purple" },
 ]
 
+const colorsList = ["red", "green", "blue", "yellow", "orange", "purple"];
+
 
 export default function Page() {
   const [puntos, setPuntos] = useState<number>(0);
   const [segundos, setSegundos] = useState<number>(60);
-  const [color, setColor] = useState<number | string>("");
+  const [targetColor, setTargetColor] = useState<number | string>("");
   const [startGame, setStartGame] = useState<boolean>(false);
+  const [bgColors, setBgColors] = useState<string[]>([]);
 
   // Requisitos
   // Ver un botón de "Jugar" el cual el usuario debe clickear para poder empezar.
@@ -24,52 +29,94 @@ export default function Page() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if(!startGame) return
-      if(segundos <= 0) return
-      setSegundos((prev) => prev - 1);
+      if(!startGame || segundos <= 0) return
+
+      setSegundos((prev) => {
+        if(prev <= 1) {
+          setStartGame(false);
+          return 0;
+        }
+        return prev - 1
+      });
     }, 1000);
     return () => clearTimeout(timer);
 
   },[segundos, startGame]);
-  
-  const randomColor = ()  => {
-    const randomColor = Math.floor(Math.random() * array.length); 
-    setColor(array[randomColor].color);
+
+  // Generar colores aleatorios para los fondos de lso botones
+  const generateRamdonBgColors = () => {
+    const generated = array.map(() => {
+      const ramdonIndex = Math.floor(Math.random() * colorsList.length);
+      return colorsList[ramdonIndex];
+    })
+    setBgColors(generated);
   }
 
+  //Seleciona un neuvo color objetivo y mezcla los fondos
+  const nextRound = () => {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    setTargetColor(array[randomIndex].color);
+    generateRamdonBgColors();
+  }
+
+  //Iniciar / reiniciar juego
   const handleStartGame = () => {
+    setPuntos(0);
+    setSegundos(10);
     setStartGame(true);
-    randomColor();
-    if(segundos === 0) {
-      setStartGame(false)
+    nextRound();
+  }
+
+  //Validar si el boton cliqueado coincide con el texto objetivo
+
+  const habdleSelectColor = (selectedTextColor: string) => {
+    if(!startGame) return;
+
+    if(selectedTextColor === targetColor) {
+      setPuntos((prev) => prev + 10);
+    } else {
+      setPuntos((prev) => prev - 5);
     }
 
+    nextRound();
   }
   
 
   return (
-    <main style={styles.mainSection}>
+    <main style={styles.mainSection} >
       <header>
-        <h1>{0} puntos</h1>
+        <h1>{puntos} puntos</h1>
         <h1>{segundos} segundos</h1>
       </header>
       <section>
         <div style={styles.sectionMain}>
-          {array.map((item) => (
+          {array.map((item, index) => (
             <div
               key={item.id}
-              // item.color
-              style={{ backgroundColor: item.color }}
-              // onClick={}
+              onClick={() => habdleSelectColor(item.color)}
+              style={{
+                backgroundColor: bgColors[index],
+                cursor: "pointer",
+                color: 'white'
+              }}
             >
               <p>{item.color}</p>
             </div>
           ))}
         </div>
       </section>
-      <span>{startGame ? color.toString().toUpperCase() : "Apreta Jugar para empezar" }</span>
+      <h2>
+        {startGame
+        ? `Haz clic en el color ${targetColor}`
+        : segundos === 0
+        ? "Tiempo agotado"
+        : "Haz clic en jugar para comenzar"
+        }
+      </h2>
       <footer>
-        <button onClick={handleStartGame} disabled={startGame} >Jugar</button>
+        <button onClick={handleStartGame} disabled={startGame} >
+          {segundos === 0 ? "Reiniciar" : "Jugar"}
+        </button>
       </footer>
     </main>
   );
@@ -87,6 +134,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
     gridTemplateRows: "1fr 1fr 1fr",
+    gap: "10px",
     alignItems: "center",
     justifyContent: "center",
     fontSize: "3rem",
