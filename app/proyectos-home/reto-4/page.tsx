@@ -56,7 +56,7 @@ export default function Page() {
   const nextRound = () => {
     const randomIndex = Math.floor(Math.random() * array.length);
     setTargetColor(array[randomIndex].color);
-    generateRamdonBgColors();
+    generateRamdonBgColors(); // mezclar los fondos
   }
 
   //Iniciar / reiniciar juego
