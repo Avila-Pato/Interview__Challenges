@@ -20,6 +20,8 @@ function App() {
         <li><Link href="./proyectos-home/reto-2">Reto 2</Link></li>
         <li> <Link href="./proyectos-home/reto-3">Reto 3</Link></li>
         <li><Link href="./proyectos-home/reto-4">Reto 4</Link></li>
+        <li><Link href="./proyectos-home/reto-5">Reto 5</Link></li>
+        <li><Link href="./proyectos-home/reto-6">Reto 6</Link></li>
       </ul>
     </div>
   )
