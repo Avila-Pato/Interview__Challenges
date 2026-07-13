@@ -10,4 +10,4 @@
 - [x] Los productos que salen 100 o menos deben tener la clase "sale" activada.
 
 ## Extra
-- [ ] La aplicación tarda unos segundos hasta mostrar los productos sin mostrar un "cargando...".
+- [X] La aplicación tarda unos segundos hasta mostrar los productos sin mostrar un "cargando...".
