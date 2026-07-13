@@ -39,11 +39,11 @@ const api = {
 
     if (query) {
       results = results.filter((product) => {
-        return product.title.includes(query);
+        return product.title.toLowerCase().includes(query.toLowerCase());
       });
     }
 
-    return new Promise((resolve) => setTimeout(() => resolve(results), 1000));
+    return new Promise((resolve) => setTimeout(() => resolve(results), 300));
   },
 };
 

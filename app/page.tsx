@@ -31,7 +31,6 @@ function App() {
         <li><Link href="./proyectos-logicos/buscador-de-listar/caso-0">Caso 0</Link></li>
         <li><Link href="./proyectos-logicos/buscador-de-listar/caso-1">Caso 1</Link></li>
         <li><Link href="./proyectos-logicos/buscador-de-listar/caso-2">Caso 2</Link></li>
-        <li><Link href="./proyectos-logicos/buscador-de-listar/caso-3">Caso 3</Link></li>
       </ul>
     </div>
   )
