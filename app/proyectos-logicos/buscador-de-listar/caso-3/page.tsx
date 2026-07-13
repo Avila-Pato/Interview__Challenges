@@ -1,4 +1,5 @@
 
+"use client";
 import {useEffect, useState} from "react";
 
 import api from "./api";
@@ -15,9 +16,7 @@ function Recommended() {
     <main>
       <h1>Productos recomendados</h1>
       <ul>
-        {[...products]
-          .sort(() => (Math.random() > 0.5 ? 1 : -1))
-          .slice(0, 2)
+        {products
           .map((product) => (
             <li key={product.id}>
               <h4>{product.title}</h4>

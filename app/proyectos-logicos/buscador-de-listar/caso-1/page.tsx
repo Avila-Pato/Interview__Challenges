@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import {useEffect, useState} from "react";
 
@@ -11,16 +12,31 @@ function App() {
   const [query, setQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
  
+
   // filtros sorted Products
   const [sort, setSort] = useState<Sort>("asc");
+
+  useEffect(() => {
+    const storedSort = localStorage.getItem("sort") as Sort | null;
+
+    if(storedSort) {
+      setSort(storedSort as Sort)
+    }
+  },[])
+
+  useEffect(() => {
+    localStorage.setItem("sort", sort);
+  }, [sort])
  
-  const sortedProduct = products.sort((a, b) => {
+  // DEBE PERSISRTIR LOS FILTROS
+     const sortedProduct = [...products].sort((a, b) => {
     if (sort === "asc") {
       return a.price - b.price;
     } else {
       return b.price - a.price;
     }
-  })
+  }, )
+ 
 
   useEffect(() => {
     api.search(query).then(setProducts).finally(() => setLoading(false));
@@ -34,7 +50,7 @@ function App() {
     <main>
       <h1>Tienda digitaloncy</h1>
       <input name="text" placeholder="tv" type="text" onChange={(e) => setQuery(e.target.value)} />
-      <select onChange={(e) => setSort(e.target.value as Sort)}>
+      <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
         <option value="asc">Ascendente</option>
         <option value="desc">Descendente</option>
       </select>
