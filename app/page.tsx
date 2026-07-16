@@ -32,6 +32,10 @@ function App() {
         <li><Link href="./proyectos-logicos/buscador-de-listar/caso-1">Caso 1</Link></li>
         <li><Link href="./proyectos-logicos/buscador-de-listar/caso-2">Caso 2</Link></li>
       </ul>
+        <h1>Proyectos logicos</h1>
+        <ul>
+          <li><Link href="./proyectos-logicos/carrito-tienda">Carrito de tiendas</Link></li>
+        </ul>
     </div>
   )
 }
