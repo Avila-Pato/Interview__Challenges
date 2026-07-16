@@ -96,10 +96,19 @@ function App() {
           </Link>
         </li>
          <li>
-          {/* <Link href="./proyectos-logicos/directorio-usuarios/caso-3">
-            complejidad moderada (sincronización de estado, estados de carga y
-            race conditions).
-          </Link> */}
+          <Link href="./proyectos-logicos/directorio-usuarios/caso-3">
+           complejidad ALTA (accesibilidad, actualizaciones optimísticas y undo/redo).
+          </Link>
+        </li>
+        <li>
+          <Link href="./proyectos-logicos/directorio-usuarios/caso-4">
+          complejidad moderada (selección múltiple, borrado masivo y reordenamiento).
+          </Link>
+        </li>
+        <li>
+          <Link href="./proyectos-logicos/directorio-usuarios/caso-5">
+            complejidad moderada (paginación, estados de carga y scroll infinito).
+          </Link>
         </li>
       </ul>
     </div>
