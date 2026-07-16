@@ -1,8 +1,8 @@
 ## Tarea 1
-- [ ] Borrar un usuario no funciona.
+- [X] Borrar un usuario no funciona.
 
 ## Tarea 2
-- [ ] Permitir seleccionar varios usuarios y borrarlos todos a la vez.
+- [X] Permitir seleccionar varios usuarios y borrarlos todos a la vez.
 
 ## Tarea 3
 - [ ] Agregar un botón de ↑ y ↓ al lado del borrar que permita reordenar la lista.
