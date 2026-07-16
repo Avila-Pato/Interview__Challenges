@@ -38,7 +38,7 @@ function App() {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart, isMounted]);
-
+//Toglecart para agregar y borrar productos
   const toggleCartProduct = (product: Product) => {
     setCart((prev) => {
       const exists = prev.some((p) => p.id === product.id);
