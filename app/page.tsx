@@ -35,6 +35,7 @@ function App() {
         <h1>Proyectos logicos</h1>
         <ul>
           <li><Link href="./proyectos-logicos/carrito-tienda">Carrito de tiendas</Link></li>
+          <li><Link href="./proyectos-logicos/directorio-usuarios/caso-0">complejidad baja (listar datos y estados de carga).</Link></li>
         </ul>
     </div>
   )

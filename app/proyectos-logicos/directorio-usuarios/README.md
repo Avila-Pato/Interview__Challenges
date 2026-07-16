@@ -1,0 +1,12 @@
+# Ejercicio de entrevista, directorio de usuarios
+
+Podemos encontrar seis carpetas [caso-0](./caso-0), [caso-1](./caso-1), [caso-2](./caso-2), [caso-3](./caso-3), [caso-4](./caso-4) y [caso-5](./caso-5) que contienen diferentes desafíos para una misma aplicación, un directorio de usuarios.
+
+Cada caso se vuelve un poco más difícil:
+
+* **Caso 0** — complejidad baja (listar datos y estados de carga).
+* **Caso 1** — complejidad baja (formularios, validación, orden y persistencia).
+* **Caso 2** — complejidad moderada (sincronización de estado, estados de carga y race conditions).
+* **Caso 3** — complejidad moderada (accesibilidad, actualizaciones optimísticas y undo/redo).
+* **Caso 4** — complejidad moderada (selección múltiple, borrado masivo y reordenamiento).
+* **Caso 5** — complejidad moderada (paginación, estados de carga y scroll infinito).
