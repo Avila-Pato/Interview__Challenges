@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "./api";
 import { User } from "./types";
+
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -12,6 +13,25 @@ function App() {
   useEffect(() => {
     api.list().then(setUsers);
   }, []);
+
+  // const sortUsers = () => {
+    //   const sorted = [...users].sort((a, b) => a.name.localeCompare(b.name))
+    //   setSortedUsers(sorted)
+    // }
+    
+    const listOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const  option = e.target.value;
+      const listaOrdenada = [...users].sort((a, b) => {
+        if(option === "asc") {
+          return a.name.localeCompare(b.name);
+        } else if(option === "des") {
+          return b.name.localeCompare(a.name);
+        }
+        return 0
+      })
+       setUsers(listaOrdenada);
+    }
+ 
 
   // Función toggle para seleccionar / deseleccionar
   const toggleSelectUser = (id: number) => {
@@ -46,6 +66,10 @@ function App() {
         <span className="muted">
           {selectedIds.length} seleccionados de {users.length}
         </span>
+        <select onChange={listOrder}>
+          <option value="asc">↑</option>
+          <option value="des">↓</option>
+        </select>
         {selectedIds.length > 0 && (
           <button className="remove" onClick={handleRemoveSelected}>
             Borrar seleccionados

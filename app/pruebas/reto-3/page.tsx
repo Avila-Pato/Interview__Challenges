@@ -14,6 +14,7 @@ function App() {
     if (loadingRef.current) return;
     loadingRef.current = true;
     setLoading(true);
+    
     api.list({ start: users.length, count: 8 }).then(({ items }) => {
       setUsers((prev) => [...prev, ...items]);
       setLoading(false);
@@ -21,7 +22,8 @@ function App() {
     });
   }, [users.length]);
 
-  
+    
+
   const disableButton =  users.length >= MAX_USERS
 
   useEffect(() => {
