@@ -134,6 +134,11 @@ function App() {
             caso 1
           </Link>
         </li>
+         <li  >
+          <Link href="./proyectos-logicos/lista-supermercado/caso-2">
+            caso 2
+          </Link>
+        </li>
       </ul>
     </div>
   );
