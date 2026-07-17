@@ -1,7 +1,12 @@
-  export const  Skeleton =  () =>  {
+
+interface SkeletonProps {
+  count: number
+}
+
+  export const  Skeleton =  ({ count = 3 }: SkeletonProps) =>  {
     return (
       <ul>
-        {[...Array(3)].map((_, index) => (
+        {[...Array(count)].map((_, index) => (
           <li key={index}>
             <div>
               <strong className="h-2 w-1/3 bg-red-900 animate-pulse"></strong>

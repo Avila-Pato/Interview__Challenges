@@ -7,7 +7,9 @@ import api, { MAX_USERS } from "./api/api";
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+
   const scrollPointerRef = useRef<HTMLDivElement | null>(null);
+  
   const loadingRef = useRef(false);
 
   const handleLoadMore = useCallback(() => {
@@ -26,6 +28,7 @@ function App() {
 
   const disableButton =  users.length >= MAX_USERS
 
+  // INTERSECTION OBSERVER PARA CARGAR MAS
   useEffect(() => {
     if(scrollPointerRef.current === null) return
     
