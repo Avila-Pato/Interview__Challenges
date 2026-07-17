@@ -122,6 +122,14 @@ function App() {
           </Link>
         </li>
       </ul>
+      <h1>Listas supermercado</h1>
+      <ul>
+        <li>
+          <Link href="./proyectos-logicos/lista-supermercado/caso-0">
+            Caso 0
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }
