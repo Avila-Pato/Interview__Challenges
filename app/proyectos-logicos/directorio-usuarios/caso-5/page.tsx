@@ -82,7 +82,11 @@ function App() {
         type="button"
         disabled={loading || !hasMore}
       >
-        {!hasMore ? "No hay más usuarios" : loading ? "Cargando..." : "Cargar más"}
+        {!hasMore
+          ? "No hay más usuarios"
+          : loading
+          ? "Cargando..."
+          : "Cargar más"}
       </button>
     </main>
   );
