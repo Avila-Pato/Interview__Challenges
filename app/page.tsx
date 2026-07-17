@@ -95,19 +95,30 @@ function App() {
             race conditions).
           </Link>
         </li>
-         <li>
+        <li>
           <Link href="./proyectos-logicos/directorio-usuarios/caso-3">
-           complejidad ALTA (accesibilidad, actualizaciones optimísticas y undo/redo).
+            complejidad ALTA (accesibilidad, actualizaciones optimísticas y
+            undo/redo).
           </Link>
         </li>
         <li>
           <Link href="./proyectos-logicos/directorio-usuarios/caso-4">
-          complejidad moderada (selección múltiple, borrado masivo y reordenamiento).
+            complejidad moderada (selección múltiple, borrado masivo y
+            reordenamiento).
           </Link>
         </li>
         <li>
           <Link href="./proyectos-logicos/directorio-usuarios/caso-5">
-            complejidad moderada (paginación, estados de carga y scroll infinito).
+            complejidad moderada (paginación, estados de carga y scroll
+            infinito).
+          </Link>
+        </li>
+      </ul>
+      <h1>Gilla simetica</h1>
+      <ul>
+        <li>
+          <Link href="./proyectos-logicos/grilla-simetrica">
+            Gilla simetica
           </Link>
         </li>
       </ul>
