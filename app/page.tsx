@@ -139,6 +139,22 @@ function App() {
             caso 2
           </Link>
         </li>
+        <h1>Tienda Pokemon</h1>
+        <li>
+          <Link href="./proyectos-logicos/tienda-pokemon/caso-0">
+            Caso 0
+          </Link>
+        </li>
+         <li>
+          <Link href="./proyectos-logicos/tienda-pokemon/caso-1">
+            Caso 1
+          </Link>
+        </li>
+         <li>
+          <Link href="./proyectos-logicos/tienda-pokemon/caso-2">
+            Caso 2
+          </Link>
+        </li>
       </ul>
     </div>
   );
