@@ -24,8 +24,8 @@ function App() {
     const text = formData.get("text") as string
     setItems((items) => [...items, {id: Date.now(), text, completed: false}])
     event.currentTarget.reset()
-  }
 
+  }
   function handleRemove(id: Item["id"]) {
     setItems((items) => items.filter((item) => item.id !== id));
   }

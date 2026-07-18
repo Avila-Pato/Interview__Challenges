@@ -1,8 +1,10 @@
+"use client";
 import type {Item} from "./types";
 
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import api from "./api";
+
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -11,23 +13,44 @@ interface Form extends HTMLFormElement {
 function App() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, toggleLoading] = useState<boolean>(true);
+  const useRefInput = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (useRefInput.current) {
+      useRefInput.current.focus();
+    }
+  }, []);
 
   function handleToggle(id: Item["id"]) {
-    // Should implement
+    setItems((items) => {
+      return items.map((item) => {
+        if (item.id === id) {
+          return {...item, completed: !item.completed};
+        }
+        return item;
+      });
+    })
   }
 
   function handleAdd(event: React.SubmitEvent<Form>) {
     event.preventDefault();
 
+    // creamos un formData a partir del formulario
+    const formData = new FormData(event.currentTarget);
+    // obtenemos el valor del input text
+    const textValue = formData.get("text") as string;
+    //validacion simple:
+    if (!textValue || textValue.trim().length === 0) return;
+
     setItems((items) =>
       items.concat({
-        id: +new Date(),
+        id: Date.now(),
         completed: false,
-        text: event.target.text.value,
-      }),
+        text: textValue.trim(),
+      } as Item),
     );
 
-    event.target.text.value = "";
+    event.currentTarget.reset();
   }
 
   function handleRemove(id: Item["id"]) {
@@ -47,7 +70,7 @@ function App() {
     <main className={styles.main}>
       <h1>Supermarket list</h1>
       <form onSubmit={handleAdd}>
-        <input name="text" type="text" />
+        <input ref={useRefInput} name="text" type="text"  required/>
         <button>Add</button>
       </form>
       <ul>
