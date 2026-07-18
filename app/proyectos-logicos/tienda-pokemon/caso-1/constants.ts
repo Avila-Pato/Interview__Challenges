@@ -20,7 +20,7 @@ export const POKEMONS: Pokemon[] = [
   {
     id: "7",
     name: "Squirtle",
-    price: 5,
+    price: 4,
     description:
       "Squirtle es una de las especies más difíciles de encontrar. Habita tanto aguas dulces como marinas, preferiblemente zonas bastante profundas.",
     image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png`,
