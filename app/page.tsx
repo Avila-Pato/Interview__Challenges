@@ -155,6 +155,22 @@ function App() {
             Caso 2
           </Link>
         </li>
+        <h1>Wordle</h1>
+        <li>
+          <Link href="./proyectos-logicos/wordle/caso-0">
+            Caso 0
+          </Link>
+        </li>
+        <li>
+          <Link href="./proyectos-logicos/wordle/caso-1">
+            Caso 1
+          </Link>
+        </li>
+        <li>
+          <Link href="./proyectos-logicos/wordle/caso-2">
+            Caso 2
+          </Link>
+        </li>
       </ul>
     </div>
   );

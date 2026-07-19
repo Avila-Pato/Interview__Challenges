@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/immutability */
+"use client";
 import {useCallback, useEffect, useState} from "react";
 
 function App() {
