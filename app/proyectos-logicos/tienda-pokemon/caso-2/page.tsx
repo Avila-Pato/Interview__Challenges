@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import type {Pokemon} from "./types";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import {POKEMONS} from "./constants";
 import PokemonCard from "./PokemonCard";
@@ -9,7 +10,28 @@ import PokemonCard from "./PokemonCard";
 function App() {
   const [cart, setCart] = useState<Pokemon[]>([]);
 
+
+
   const totalMoney = cart.reduce((total, pokemons) => total + pokemons.price, 0);
+
+  const [mounted, setMounted] = useState(true);
+  //persistir carrito.
+  useEffect(() => {
+    const cart = localStorage.getItem("cart");
+
+    if(cart) {
+      setCart(JSON.parse(cart));
+    }
+
+    setMounted(false);
+
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, mounted]);
 
 
   return (
